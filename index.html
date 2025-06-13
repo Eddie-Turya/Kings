@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kings Capital Tanzania - Crypto & Forex Trading Experts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #FFD700;
+            --primary-dark: #0f0e17;
+            --accent-blue: #1f1b3a;
+            --crypto-purple: #6e45e2;
+            --text-light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden;
+            background-color: #0f0e17;
+            color: #f8f9fa;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #0f0e17 0%, #1f1b3a 50%, #0a0a1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="%236e45e2" stop-opacity="0.1"/><stop offset="100%" stop-color="%236e45e2" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"><animate attributeName="cx" values="200;800;200" dur="20s" repeatCount="indefinite"/></circle><circle cx="800" cy="300" r="150" fill="url(%23a)"><animate attributeName="cy" values="300;700;300" dur="25s" repeatCount="indefinite"/></circle><circle cx="500" cy="600" r="120" fill="url(%23a)"><animate attributeName="r" values="120;200;120" dur="15s" repeatCount="indefinite"/></circle></svg>') center/cover;
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .crypto-pattern {
+            background-image: url('data:image/svg+xml,<svg width="52" height="26" viewBox="0 0 52 26" xmlns="http://www.w3.org/2000/svg"><g fill="%236e45e2" fill-opacity="0.1"><path d="M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z"/></g></svg>');
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(1deg); }
+            66% { transform: translateY(20px) rotate(-1deg); }
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #FFD700, #FFA500, #6e45e2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-primary-custom {
+            background: linear-gradient(135deg, #6e45e2, #FFD700);
+            border: none;
+            color: #0f0e17;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-primary-custom:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(110, 69, 226, 0.4);
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            background: rgba(15, 14, 23, 0.8);
+            border: 1px solid rgba(110, 69, 226, 0.3);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(110, 69, 226, 0.2), rgba(255, 215, 0, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .service-card:hover::before {
+            opacity: 1;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(110, 69, 226, 0.2);
+            border-color: rgba(110, 69, 226, 0.6);
+        }
+        
+        .pricing-card {
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            background: rgba(15, 14, 23, 0.9);
+            border: 1px solid rgba(110, 69, 226, 0.3);
+        }
+        
+        .pricing-card:hover {
+            transform: rotateY(5deg) translateY(-10px);
+            box-shadow: 0 25px 50px rgba(110, 69, 226, 0.2);
+            border-color: rgba(110, 69, 226, 0.6);
+        }
+        
+        .testimonial-card {
+            background: rgba(31, 27, 58, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(110, 69, 226, 0.3);
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float-shapes 20s infinite ease-in-out;
+        }
+        
+        .shape:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { top: 60%; right: 10%; animation-delay: 7s; }
+        .shape:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 14s; }
+        
+        @keyframes float-shapes {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(30px) rotate(240deg); }
+        }
+        
+        .navbar-custom {
+            background: rgba(15, 14, 23, 0.95);
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(110, 69, 226, 0.2);
+        }
+        
+        .navbar-scrolled {
+            background: rgba(15, 14, 23, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            animation: pulse-whatsapp 2s infinite;
+        }
+        
+        @keyframes pulse-whatsapp {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 999;
+            background: var(--crypto-purple);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .gallery-item {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(110, 69, 226, 0.3);
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(110, 69, 226, 0.3);
+            border-color: rgba(110, 69, 226, 0.6);
+        }
+        
+        .contact-form input, .contact-form textarea, .contact-form select {
+            background: rgba(31, 27, 58, 0.6);
+            border: 1px solid rgba(110, 69, 226, 0.3);
+            color: white;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
+            background: rgba(31, 27, 58, 0.8);
+            border-color: var(--crypto-purple);
+            box-shadow: 0 0 20px rgba(110, 69, 226, 0.3);
+        }
+        
+        .contact-form input::placeholder, .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .mission-box {
+            background: linear-gradient(135deg, rgba(110, 69, 226, 0.1), rgba(255, 215, 0, 0.05));
+            border-left: 4px solid var(--crypto-purple);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mission-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%236e45e2" opacity="0.05" d="M30,10L50,30L70,10L90,30L70,50L90,70L70,90L50,70L30,90L10,70L30,50L10,30L30,10Z"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .crypto-icon {
+            color: var(--crypto-purple);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-box {
+            transition: all 0.3s ease;
+            background: rgba(31, 27, 58, 0.6);
+            border: 1px solid rgba(110, 69, 226, 0.3);
+            border-radius: 15px;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(110, 69, 226, 0.2);
+            border-color: rgba(110, 69, 226, 0.6);
+        }
+        
+        .crypto-badge {
+            background: rgba(110, 69, 226, 0.2);
+            color: var(--crypto-purple);
+            border: 1px solid var(--crypto-purple);
+        }
+    </style>
+</head>
+<body class="crypto-pattern">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom">
+        <div class="container">
+            <a class="navbar-brand fw-bold gradient-text" href="#home">
+                <i class="fas fa-crown me-2"></i>Kings Capital
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#programs">Programs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-vh-100 d-flex align-items-center position-relative">
+        <div class="floating-shapes">
+            <div class="shape">
+                <i class="fab fa-bitcoin text-purple" style="font-size: 3rem;"></i>
+            </div>
+            <div class="shape">
+                <i class="fas fa-chart-line text-purple" style="font-size: 2.5rem;"></i>
+            </div>
+            <div class="shape">
+                <i class="fas fa-coins text-purple" style="font-size: 3.5rem;"></i>
+            </div>
+        </div>
+        <div class="container text-center text-white position-relative z-index-2">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1 class="display-3 fw-bold mb-4" data-aos="fade-up" data-aos-delay="100">
+                        Welcome to <span class="gradient-text">Kings Capital</span>
+                    </h1>
+                    <p class="lead fs-3 mb-5" data-aos="fade-up" data-aos-delay="200">
+                        Empowering Tanzanian Traders in Crypto & Forex Markets
+                    </p>
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center" data-aos="fade-up" data-aos-delay="300">
+                        <button class="btn btn-primary-custom btn-lg px-5 py-3 rounded-pill">
+                            <i class="fas fa-rocket me-2"></i>Start Trading Now
+                        </button>
+                        <button class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill">
+                            <i class="fas fa-play me-2"></i>Watch Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5" style="background: linear-gradient(135deg, #0f0e17 0%, #1f1b3a 100%);">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                    <div class="pe-lg-4">
+                        <span class="badge crypto-badge rounded-pill px-3 py-2 mb-3">Who We Are</span>
+                        <h2 class="display-5 fw-bold text-white mb-4">The Premier Crypto & Forex Education Platform in Tanzania</h2>
+                        <p class="lead text-light mb-4">
+                            At Kings Capital Tanzania, we're revolutionizing financial education by combining cutting-edge crypto knowledge with proven forex trading strategies.
+                        </p>
+                        <p class="text-light mb-4">
+                            Founded by a team of expert traders with over 15 years combined market experience, we've created a unique ecosystem where Tanzanian traders can thrive in both traditional and digital markets.
+                        </p>
+                        
+                        <div class="mission-box p-4 rounded-4 mb-4">
+                            <h3 class="text-white fw-bold mb-3">Our Mission</h3>
+                            <p class="text-light mb-0">
+                                To democratize financial knowledge and create sustainable wealth for Tanzanians through comprehensive crypto and forex education, mentorship, and community support.
+                            </p>
+                        </div>
+                        
+                        <div class="row g-4 mt-4">
+                            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                                <div class="feature-box p-3 text-center h-100">
+                                    <i class="fas fa-users crypto-icon"></i>
+                                    <h4 class="fw-bold text-white">500+</h4>
+                                    <p class="text-light mb-0">Active Traders</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                                <div class="feature-box p-3 text-center h-100">
+                                    <i class="fas fa-chart-pie crypto-icon"></i>
+                                    <h4 class="fw-bold text-white">95%</h4>
+                                    <p class="text-light mb-0">Success Rate</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                                <div class="feature-box p-3 text-center h-100">
+                                    <i class="fas fa-graduation-cap crypto-icon"></i>
+                                    <h4 class="fw-bold text-white">300+</h4>
+                                    <p class="text-light mb-0">Graduates</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="position-relative rounded-4 overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Crypto Trading" class="img-fluid w-100">
+                        <div class="position-absolute bottom-0 start-0 w-100 p-4" style="background: linear-gradient(to top, rgba(15,14,23,0.9) 0%, transparent 100%);">
+                            <h4 class="text-white fw-bold">Join Our Trading Revolution</h4>
+                            <p class="text-light mb-0">Where traditional forex meets the crypto future</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5" style="background: linear-gradient(135deg, #1f1b3a 0%, #0f0e17 100%);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge crypto-badge rounded-pill px-3 py-2 mb-3">Our Services</span>
+                <h2 class="display-4 fw-bold gradient-text mb-4" data-aos="fade-up">Crypto & Forex Solutions</h2>
+                <p class="lead text-light" data-aos="fade-up" data-aos-delay="100">
+                    Comprehensive trading services tailored for the modern Tanzanian trader
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card p-4 h-100 text-center">
+                        <div class="mb-4">
+                            <i class="fab fa-bitcoin text-purple" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Crypto Signals</h4>
+                        <p class="text-light mb-4">Premium Bitcoin & Altcoin signals with 85%+ accuracy delivered in real-time.</p>
+                        <div class="mb-4">
+                            <span class="h3 gradient-text fw-bold">TSh 75,000</span>
+                            <span class="text-muted">/month</span>
+                        </div>
+                        <button class="btn btn-primary-custom w-100 rounded-pill">Get Started</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card p-4 h-100 text-center">
+                        <div class="mb-4">
+                            <i class="fas fa-exchange-alt text-purple" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Forex Signals</h4>
+                        <p class="text-light mb-4">High-probability forex trade alerts with entry, TP, and SL levels.</p>
+                        <div class="mb-4">
+                            <span class="h3 gradient-text fw-bold">TSh 50,000</span>
+                            <span class="text-muted">/month</span>
+                        </div>
+                        <button class="btn btn-primary-custom w-100 rounded-pill">Get Started</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card p-4 h-100 text-center">
+                        <div class="mb-4">
+                            <i class="fas fa-copy text-purple" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Copy Trading</h4>
+                        <p class="text-light mb-4">Automatically copy trades from our expert crypto & forex traders.</p>
+                        <div class="mb-4">
+                            <span class="h3 gradient-text fw-bold">TSh 100,000</span>
+                            <span class="text-muted">/month</span>
+                        </div>
+                        <button class="btn btn-primary-custom w-100 rounded-pill">Get Started</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-card p-4 h-100 text-center">
+                        <div class="mb-4">
+                            <i class="fas fa-users text-purple" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">VIP Community</h4>
+                        <p class="text-light mb-4">Exclusive access to our crypto & forex trading community.</p>
+                        <div class="mb-4">
+                            <span class="h3 gradient-text fw-bold">TSh 35,000</span>
+                            <span class="text-muted">/month</span>
+                        </div>
+                        <button class="btn btn-primary-custom w-100 rounded-pill">Get Started</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mentorship Programs -->
+    <section id="programs" class="py-5" style="background: linear-gradient(135deg, #0f0e17 0%, #1f1b3a 100%);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge crypto-badge rounded-pill px-3 py-2 mb-3">Education</span>
+                <h2 class="display-4 fw-bold text-white mb-4" data-aos="fade-up">Mentorship Programs</h2>
+                <p class="lead text-light" data-aos="fade-up" data-aos-delay="100">
+                    Structured learning paths from beginner to professional trader
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pricing-card p-4 rounded-4 shadow-lg h-100">
+                        <div class="text-center mb-4">
+                            <h3 class="fw-bold text-white mb-2">Crypto Foundations</h3>
+                            <div class="mb-3">
+                                <span class="h2 gradient-text fw-bold">TSh 200,000</span>
+                                <span class="text-muted">/month</span>
+                            </div>
+                            <p class="text-light">Start your crypto journey</p>
+                        </div>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2 text-light"><i class="fas fa-check text-success me-2"></i>Blockchain fundamentals</li>
+                            <li class="mb-2 text-light"><i class="fas fa-check text-success me-2"></i>Crypto market basics</li>
+                            <li class="mb-2 text-light"><i class="fas fa-check text-success me-2"></i>Wallet security</li>
+                            <li class="mb-2 text-light"><i class="fas fa-check text-success me-2"></i>Exchange navigation</li>
+                            <li class="mb-2 text-light"><i class="fas fa-check text-success me-2"></i>Basic trading strategies</li>
+                        </ul>
+                        <button class="btn btn-primary-custom w-100 rounded-pill">Start Now</button>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pricing-card p-4 rounded-4 shadow-lg h-100 position-relative" style="transform: scale(1.05); border-color: rgba(110, 69, 226, 0.6);">
+                        <div class="position-absolute top-0 start-50 translate-middle">
+                            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">Most Popular</span>
+                        </div>
+                        <div class="text-center mb-4 mt-3">
+                            <h3 class="fw-bold text-white mb-2">Pro Trader Program</h3>
+                            <div class="mb-3">
+                                <span class="h2 gradient-text fw-bold">TSh 350,000</span>
+                                <span class="text-muted">/month</span>
+                            </div>
+                            <p class="text-light">Master crypto & forex trading</p>
+                        </div>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2 text-light"><i class="fas fa-check text-warning me-2"></i>Advanced TA & FA</li>
+                            <li class="mb-2 text-light"><i class="fas fa-check text-warning me-2"></i>Risk management</li>
+                            <li class="mb-2 text-light"><i class="fas fa-check text-warning me-2"></i>Trading psychology</li>
+                            <li class="mb-2 text-light"><i class="fas fa-check text-warning me-2"></i>Weekly 1-on-1 sessions</li>
+                            <li class="mb-2 text-light"><i class="fas fa-check text-warning me-2"></i>Portfolio management</li>
+                        </ul>
+                        <button class="btn btn-primary-custom w-100 rounded-pill">Claim Spot</button>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="pricing-card p-4 rounded-4 shadow-lg h-100">
+                        <div class="text-center mb-4">
+                            <h3 class="fw-bold text-white mb-2">Elite Masterclass</h3>
+                            <div class="mb-3">
+                                <span class="h2 gradient-text fw-bold">TSh 500,000</span>
+                                <span class="text-muted">/month</span>
+                            </div>
+                            <p class="text-light">For serious traders only</p>
+                        </div>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2 text-light"><i class="fas fa-check text-success me-2"></i>Institutional strategies</li>
+                            <li class="mb-2 text-light"><i class="fas fa-check text-success me-2"></i>Algorithmic trading</li>
+                            <li class="mb-2 text-light"><i class="fas fa-check text-success me-2"></i>Market making concepts</li>
+                            <li class="mb-2 text-light"><i class="fas fa-check text-success me-2"></i>Daily mentorship</li>
+                            <li class="mb-2 text-light"><i class="fas fa-check text-success me-2"></i>VIP signals & analysis</li>
+                        </ul>
+                        <button class="btn btn-primary-custom w-100 rounded-pill">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-5" style="background: linear-gradient(135deg, #1f1b3a 0%, #0f0e17 100%);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge crypto-badge rounded-pill px-3 py-2 mb-3">Success Stories</span>
+                <h2 class="display-4 fw-bold gradient-text mb-4" data-aos="fade-up">What Our Traders Say</h2>
+                <p class="lead text-light" data-aos="fade-up" data-aos-delay="100">
+                    Real results from our Tanzanian trading community
+                </p>
+            </div>
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="testimonial-card text-center p-5 rounded-4">
+                                    <div class="mb-4">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" 
+                                             alt="Testimonial" class="rounded-circle" width="80" height="80">
+                                    </div>
+                                    <div class="mb-3">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    </div>
+                                    <blockquote class="lead mb-4 text-light">
+                                        "The crypto mentorship program transformed my understanding of blockchain technology. I went from zero to making consistent profits within 3 months. The support is incredible!"
+                                    </blockquote>
+                                    <h5 class="fw-bold gradient-text">John Mwangi</h5>
+                                    <p class="text-muted">Crypto Program Graduate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="testimonial-card text-center p-5 rounded-4">
+                                    <div class="mb-4">
+                                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" 
+                                             alt="Testimonial" class="rounded-circle" width="80" height="80">
+                                    </div>
+                                    <div class="mb-3">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    </div>
+                                    <blockquote class="lead mb-4 text-light">
+                                        "Kings Capital's forex signals are incredibly accurate. I've been profitable for 6 months straight now. Their crypto analysis is equally impressive!"
+                                    </blockquote>
+                                    <h5 class="fw-bold gradient-text">Grace Msaki</h5>
+                                    <p class="text-muted">VIP Member</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="testimonial-card text-center p-5 rounded-4">
+                                    <div class="mb-4">
+                                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" 
+                                             alt="Testimonial" class="rounded-circle" width="80" height="80">
+                                    </div>
+                                    <div class="mb-3">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    </div>
+                                    <blockquote class="lead mb-4 text-light">
+                                        "The Elite Masterclass took my trading to another level. The 1-on-1 sessions helped me develop strategies that work in both crypto and forex markets."
+                                    </blockquote>
+                                    <h5 class="fw-bold gradient-text">David Kikwete</h5>
+                                    <p class="text-muted">Elite Trader</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="py-5" style="background: linear-gradient(135deg, #0f0e17 0%, #1f1b3a 100%);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge crypto-badge rounded-pill px-3 py-2 mb-3">Our Community</span>
+                <h2 class="display-4 fw-bold text-white mb-4" data-aos="fade-up">Trading Success Gallery</h2>
+                <p class="lead text-light" data-aos="fade-up" data-aos-delay="100">
+                    Moments from our trading community and success stories
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Crypto Workshop" class="img-fluid w-100" style="height: 300px; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Trading Session" class="img-fluid w-100" style="height: 300px; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Market Analysis" class="img-fluid w-100" style="height: 300px; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Success Celebration" class="img-fluid w-100" style="height: 300px; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Team Meeting" class="img-fluid w-100" style="height: 300px; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1590736969955-71cc94901144?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Mentorship Session" class="img-fluid w-100" style="height: 300px; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Map -->
+    <section id="location" class="py-5" style="background: linear-gradient(135deg, #1f1b3a 0%, #0f0e17 100%);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge crypto-badge rounded-pill px-3 py-2 mb-3">Visit Us</span>
+                <h2 class="display-4 fw-bold gradient-text mb-4" data-aos="fade-up">Our Headquarters</h2>
+                <p class="lead text-light" data-aos="fade-up" data-aos-delay="100">
+                    Located in the heart of Dar es Salaam
+                </p>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                    <div class="pe-lg-4">
+                        <h4 class="fw-bold gradient-text mb-3">Kings Capital HQ</h4>
+                        <p class="text-light mb-4">
+                            <i class="fas fa-map-marker-alt text-purple me-2"></i>
+                            Mbezi kwa Zena, Dar es Salaam, Tanzania
+                        </p>
+                        <p class="text-light mb-4">
+                            Visit us for in-person consultations, workshops, and community events. Our modern facilities provide the perfect environment for learning and networking with fellow traders.
+                        </p>
+                        <div class="d-flex flex-column gap-2">
+                            <p class="text-light mb-1">
+                                <i class="fas fa-clock text-purple me-2"></i>
+                                <strong>Office Hours:</strong> Mon-Fri 9:00 AM - 6:00 PM
+                            </p>
+                            <p class="text-light mb-1">
+                                <i class="fas fa-phone text-purple me-2"></i>
+                                <strong>Phone:</strong> +255 123 456 789
+                            </p>
+                            <p class="text-light">
+                                <i class="fas fa-envelope text-purple me-2"></i>
+                                <strong>Email:</strong> info@kingscapitaltanzania.com
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="rounded-4 overflow-hidden shadow-lg">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.4127573508693!2d39.2071314748495!3d-6.835574866896374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4c79f8b80d91%3A0x4bcf7c1ed9c8e15c!2sMbezi%20Beach%2C%20Dar%20es%20Salaam!5e0!3m2!1sen!2stz!4v1635789012345!5m2!1sen!2stz" 
+                            width="100%" 
+                            height="400" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" class="py-5" style="background: linear-gradient(135deg, #0f0e17 0%, #1f1b3a 100%);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge crypto-badge rounded-pill px-3 py-2 mb-3">Get Started</span>
+                <h2 class="display-4 fw-bold gradient-text mb-4" data-aos="fade-up">Ready to Begin Your Trading Journey?</h2>
+                <p class="lead text-light" data-aos="fade-up" data-aos-delay="100">
+                    Contact us today to start your path to financial freedom
+                </p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <form class="contact-form" data-aos="fade-up" data-aos-delay="200">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                                    <label for="name">Your Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+                                    <label for="email">Your Email</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="tel" class="form-control" id="phone" placeholder="Your Phone">
+                                    <label for="phone">Your Phone (Optional)</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-control" id="service">
+                                        <option value="">Select a Service</option>
+                                        <option value="crypto-signals">Crypto Signals</option>
+                                        <option value="forex-signals">Forex Signals</option>
+                                        <option value="copy-trading">Copy Trading</option>
+                                        <option value="mentorship">Mentorship Program</option>
+                                        <option value="community">VIP Community</option>
+                                    </select>
+                                    <label for="service">Interested Service</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="message" placeholder="Your Message" style="height: 120px;" required></textarea>
+                                    <label for="message">Your Message</label>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary-custom btn-lg px-5 py-3 rounded-pill">
+                                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5" style="background: #0f0e17;">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold gradient-text mb-4">
+                        <i class="fas fa-crown me-2"></i>Kings Capital
+                    </h5>
+                    <p class="text-light mb-4">
+                        Tanzania's premier crypto and forex education platform, empowering traders with knowledge, tools, and community support.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-purple"><i class="fab fa-telegram fa-2x"></i></a>
+                        <a href="#" class="text-purple"><i class="fab fa-whatsapp fa-2x"></i></a>
+                        <a href="#" class="text-purple"><i class="fab fa-instagram fa-2x"></i></a>
+                        <a href="#" class="text-purple"><i class="fab fa-twitter fa-2x"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold text-purple mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#home" class="text-light text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="#about" class="text-light text-decoration-none">About</a></li>
+                        <li class="mb-2"><a href="#services" class="text-light text-decoration-none">Services</a></li>
+                        <li class="mb-2"><a href="#programs" class="text-light text-decoration-none">Programs</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold text-purple mb-3">Services</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none">Crypto Signals</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none">Forex Signals</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none">Copy Trading</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none">VIP Community</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold text-purple mb-3">Legal</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none">Terms of Service</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none">Disclaimer</a></li>
+                        <li class="mb-2"><a href="#" class="text-light text-decoration-none">Risk Warning</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold text-purple mb-3">Contact</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2 text-light"><i class="fas fa-map-marker-alt text-purple me-2"></i>Mbezi kwa Zena</li>
+                        <li class="mb-2 text-light"><i class="fas fa-phone text-purple me-2"></i>+255 123 456 789</li>
+                        <li class="mb-2 text-light"><i class="fas fa-envelope text-purple me-2"></i>info@kingscapital.co.tz</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 border-secondary">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="text-muted mb-0">&copy; 2024 Kings Capital Tanzania. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted mb-0">Empowering Tanzanian Traders <i class="fas fa-heart text-danger"></i></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/255123456789" class="floating-whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-custom');
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+            
+            // Scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTop');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Smooth scrolling for navbar links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll to top button
+        document.getElementById('scrollTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Gallery lightbox effect
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', function() {
+                const modal = document.createElement('div');
+                modal.className = 'position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center';
+                modal.style.backgroundColor = 'rgba(0,0,0,0.9)';
+                modal.style.zIndex = '9999';
+                modal.style.cursor = 'pointer';
+                
+                const modalImg = document.createElement('img');
+                modalImg.src = this.src;
+                modalImg.className = 'img-fluid rounded-4';
+                modalImg.style.maxHeight = '90vh';
+                modalImg.style.maxWidth = '90vw';
+                
+                modal.appendChild(modalImg);
+                document.body.appendChild(modal);
+                
+                modal.addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                });
+            });
+        });
+
+        // Contact form handling
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission (replace with actual API call)
+            setTimeout(() => {
+                // Show success message
+                submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Message Sent!';
+                submitBtn.classList.remove('btn-primary-custom');
+                submitBtn.classList.add('btn-success');
+                
+                // Reset form
+                this.reset();
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('btn-success');
+                    submitBtn.classList.add('btn-primary-custom');
+                }, 3000);
+                
+                // Show alert
+                alert('Thank you for your message! We will get back to you soon.');
+            }, 2000);
+        });
+
+        // Auto-advance testimonial carousel
+        setInterval(() => {
+            const carousel = bootstrap.Carousel.getInstance(document.getElementById('testimonialCarousel'));
+            if (carousel) {
+                carousel.next();
+            }
+        }, 5000);
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-bg');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Service card hover effects
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add typing effect to hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect after page load
+        window.addEventListener('load', function() {
+            const heroTitle = document.querySelector('#home h1');
+            const originalText = heroTitle.textContent;
+            setTimeout(() => {
+                typeWriter(heroTitle, originalText, 50);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
