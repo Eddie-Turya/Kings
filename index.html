@@ -1001,6 +1001,14 @@
                 }
                 });
             });
+
+            // Scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTop');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
         });
 
         // Scroll to top button
