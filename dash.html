@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kings Capital Co. | Client Dashboard</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #d4af37;
+            --accent: #2c5282;
+            --light: #f7fafc;
+            --dark: #2d3748;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+        }
+        
+        .sidebar {
+            background: linear-gradient(180deg, var(--primary) 0%, #15325a 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            transition: all 0.3s;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .nav-link i {
+            width: 24px;
+            text-align: center;
+            margin-right: 10px;
+        }
+        
+        .signal-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .signal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-card {
+            border-radius: 10px;
+            border: none;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-gold {
+            background-color: var(--secondary);
+            color: var(--primary);
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-gold:hover {
+            background-color: #c9a227;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .floating-chat {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #25D366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .floating-chat:hover {
+            transform: scale(1.1);
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+        }
+        
+        .bottom-nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            color: var(--dark);
+            transition: all 0.2s;
+        }
+        
+        .bottom-nav-item.active {
+            color: var(--secondary);
+        }
+        
+        .bottom-nav-item i {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e2e8f0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            background-color: var(--secondary);
+        }
+        
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.show {
+                transform: translateX(0);
+                z-index: 1050;
+            }
+            .main-content {
+                margin-left: 0 !important;
+            }
+            .bottom-nav {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page" class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg">
+            <div class="text-center">
+                <img class="mx-auto h-20 w-auto" src="https://kingscapitaltanzania.com/public/logo.png" alt="Kings Capital Co.">
+                <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
+                    Client Dashboard
+                </h2>
+                <p class="mt-2 text-sm text-gray-600">
+                    Empowering Tanzanian youth through forex mentorship
+                </p>
+            </div>
+            <form class="mt-8 space-y-6" id="login-form">
+                <div class="rounded-md shadow-sm space-y-4">
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
+                        <div class="mt-1 relative">
+                            <input id="email" name="email" type="email" autocomplete="email" required 
+                                class="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
+                                placeholder="you@example.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <div class="mt-1 relative">
+                            <input id="password" name="password" type="password" autocomplete="current-password" required 
+                                class="appearance-none block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
+                                placeholder="••••••••">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox" 
+                            class="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded">
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+                            Remember me
+                        </label>
+                    </div>
+
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-yellow-600 hover:text-yellow-500">
+                            Forgot your password?
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" id="login-btn" 
+                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all duration-300">
+                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        Sign in
+                        <span id="login-spinner" class="ml-2 hidden">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Layout -->
+    <div id="dashboard" class="hidden">
+        <!-- Sidebar -->
+        <div class="sidebar w-64 p-4 hidden lg:block">
+            <div class="flex items-center justify-center mb-10">
+                <img src="https://kingscapitaltanzania.com/public/logo.png" alt="Kings Capital Co." class="h-10">
+            </div>
+            
+            <div class="user-profile text-center mb-8">
+                <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-200 overflow-hidden">
+                    <img src="https://kingscapitaltanzania.com/public/logo.png" alt="User" class="w-full h-full object-cover">
+                </div>
+                <h3 class="font-semibold text-lg">John Mwakasege</h3>
+                <p class="text-gray-300 text-sm">john@kingscapital.co.tz</p>
+                <p class="text-gray-400 text-xs mt-1">Member since: Jan 2023</p>
+            </div>
+            
+            <nav class="mt-6">
+                <a href="#" class="nav-link flex items-center px-4 py-3 mb-2 rounded active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-link flex items-center px-4 py-3 mb-2 rounded" data-section="signals">
+                    <i class="fas fa-chart-line"></i>
+                    Trading Signals
+                </a>
+                <a href="#" class="nav-link flex items-center px-4 py-3 mb-2 rounded" data-section="stats">
+                    <i class="fas fa-chart-pie"></i>
+                    Statistics
+                </a>
+                <a href="#" class="nav-link flex items-center px-4 py-3 mb-2 rounded" data-section="profile">
+                    <i class="fas fa-user"></i>
+                    Profile
+                </a>
+                <a href="#" class="nav-link flex items-center px-4 py-3 mb-2 rounded" data-section="mentorship">
+                    <i class="fas fa-graduation-cap"></i>
+                    Mentorship
+                </a>
+            </nav>
+            
+            <div class="absolute bottom-0 left-0 right-0 p-4">
+                <button id="logout-btn" class="w-full py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-md flex items-center justify-center transition">
+                    <i class="fas fa-sign-out-alt mr-2"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Sidebar Toggle -->
+        <div class="lg:hidden fixed top-4 left-4 z-50">
+            <button id="sidebar-toggle" class="p-2 rounded-md bg-gray-800 text-white focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Sidebar -->
+        <div class="sidebar w-64 p-4 lg:hidden fixed top-0 left-0 h-full transform -translate-x-full transition-transform duration-300">
+            <div class="flex items-center justify-between mb-10">
+                <img src="https://kingscapitaltanzania.com/public/logo.png" alt="Kings Capital Co." class="h-10">
+                <button id="mobile-sidebar-close" class="p-2 text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="user-profile text-center mb-8">
+                <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-200 overflow-hidden">
+                    <img src="https://kingscapitaltanzania.com/public/logo.png" alt="User" class="w-full h-full object-cover">
+                </div>
+                <h3 class="font-semibold text-lg">John Mwakasege</h3>
+                <p class="text-gray-300 text-sm">john@kingscapital.co.tz</p>
+                <p class="text-gray-400 text-xs mt-1">Member since: Jan 2023</p>
+            </div>
+            
+            <nav class="mt-6">
+                <a href="#" class="nav-link flex items-center px-4 py-3 mb-2 rounded active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-link flex items-center px-4 py-3 mb-2 rounded" data-section="signals">
+                    <i class="fas fa-chart-line"></i>
+                    Trading Signals
+                </a>
+                <a href="#" class="nav-link flex items-center px-4 py-3 mb-2 rounded" data-section="stats">
+                    <i class="fas fa-chart-pie"></i>
+                    Statistics
+                </a>
+                <a href="#" class="nav-link flex items-center px-4 py-3 mb-2 rounded" data-section="profile">
+                    <i class="fas fa-user"></i>
+                    Profile
+                </a>
+                <a href="#" class="nav-link flex items-center px-4 py-3 mb-2 rounded" data-section="mentorship">
+                    <i class="fas fa-graduation-cap"></i>
+                    Mentorship
+                </a>
+            </nav>
+            
+            <div class="absolute bottom-0 left-0 right-0 p-4">
+                <button id="mobile-logout-btn" class="w-full py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-md flex items-center justify-center transition">
+                    <i class="fas fa-sign-out-alt mr-2"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content lg:ml-64 min-h-screen">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm">
+                <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                    <h1 class="text-lg font-semibold text-gray-900" id="page-title">Dashboard Overview</h1>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <button id="notification-btn" class="p-2 rounded-full text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none">
+                                <i class="fas fa-bell"></i>
+                                <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+                            </button>
+                        </div>
+                        <div class="relative lg:hidden">
+                            <button id="profile-btn" class="flex items-center space-x-2 focus:outline-none">
+                                <div class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden">
+                                    <img src="https://kingscapitaltanzania.com/public/logo.png" alt="User" class="w-full h-full object-cover">
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Dashboard Content -->
+            <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                <!-- Dashboard Section -->
+                <div id="dashboard-section" class="section-content">
+                    <!-- Welcome Banner -->
+                    <div class="bg-gradient-to-r from-blue-900 to-blue-700 rounded-xl p-6 text-white mb-6">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                            <div>
+                                <h2 class="text-2xl font-bold mb-2">Welcome back, John!</h2>
+                                <p class="opacity-90">Your mentorship journey continues. Check today's signals below.</p>
+                            </div>
+                            <button class="mt-4 md:mt-0 bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-semibold py-2 px-6 rounded-lg transition duration-300">
+                                View Performance
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="stat-card bg-white p-6 rounded-xl shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-500 text-sm font-medium">Total Trades</p>
+                                    <h3 class="text-2xl font-bold mt-1">47</h3>
+                                </div>
+                                <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-green-600 font-medium">+12%</span>
+                                    <span class="text-gray-500">vs last month</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card bg-white p-6 rounded-xl shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-500 text-sm font-medium">Win Rate</p>
+                                    <h3 class="text-2xl font-bold mt-1">72%</h3>
+                                </div>
+                                <div class="p-3 rounded-full bg-green-100 text-green-600">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-green-600 font-medium">+8%</span>
+                                    <span class="text-gray-500">vs last month</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card bg-white p-6 rounded-xl shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-500 text-sm font-medium">Account Balance</p>
+                                    <h3 class="text-2xl font-bold mt-1">$2,450</h3>
+                                </div>
+                                <div class="p-3 rounded-full bg-purple-100 text-purple-600">
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-green-600 font-medium">+$320</span>
+                                    <span class="text-gray-500">this month</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card bg-white p-6 rounded-xl shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-500 text-sm font-medium">Mentorship Days</p>
+                                    <h3 class="text-2xl font-bold mt-1">27</h3>
+                                </div>
+                                <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-red-600 font-medium">3 left</span>
+                                    <span class="text-gray-500">in current plan</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Today's Signals -->
+                    <div class="mb-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-xl font-semibold text-gray-800">Today's Trading Signals</h2>
+                            <a href="#" class="text-sm text-blue-600 hover:text-blue-800 font-medium">View All</a>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Signal Card 1 -->
+                            <div class="signal-card bg-white overflow-hidden shadow" data-aos="fade-up">
+                                <div class="px-6 py-4">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">FOREX</span>
+                                        <span class="text-xs text-gray-500">10:30 AM</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-gray-800 mb-2">EUR/USD</h3>
+                                    <div class="grid grid-cols-3 gap-2 text-center">
+                                        <div>
+                                            <p class="text-xs text-gray-500">Entry</p>
+                                            <p class="font-semibold">1.0925</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Stop Loss</p>
+                                            <p class="font-semibold text-red-600">1.0880</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Take Profit</p>
+                                            <p class="font-semibold text-green-600">1.1020</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="px-6 py-3 bg-gray-50 flex justify-between items-center">
+                                    <span class="text-xs text-gray-500">Risk: Medium</span>
+                                    <button class="text-xs bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded-full transition">
+                                        Copy Trade
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Signal Card 2 -->
+                            <div class="signal-card bg-white overflow-hidden shadow" data-aos="fade-up" data-aos-delay="100">
+                                <div class="px-6 py-4">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">FOREX</span>
+                                        <span class="text-xs text-gray-500">11:45 AM</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-gray-800 mb-2">GBP/JPY</h3>
+                                    <div class="grid grid-cols-3 gap-2 text-center">
+                                        <div>
+                                            <p class="text-xs text-gray-500">Entry</p>
+                                            <p class="font-semibold">158.40</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Stop Loss</p>
+                                            <p class="font-semibold text-red-600">157.80</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Take Profit</p>
+                                            <p class="font-semibold text-green-600">159.50</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="px-6 py-3 bg-gray-50 flex justify-between items-center">
+                                    <span class="text-xs text-gray-500">Risk: High</span>
+                                    <button class="text-xs bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded-full transition">
+                                        Copy Trade
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Signal Card 3 -->
+                            <div class="signal-card bg-white overflow-hidden shadow" data-aos="fade-up" data-aos-delay="200">
+                                <div class="px-6 py-4">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">FOREX</span>
+                                        <span class="text-xs text-gray-500">2:15 PM</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-gray-800 mb-2">USD/CAD</h3>
+                                    <div class="grid grid-cols-3 gap-2 text-center">
+                                        <div>
+                                            <p class="text-xs text-gray-500">Entry</p>
+                                            <p class="font-semibold">1.3350</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Stop Loss</p>
+                                            <p class="font-semibold text-red-600">1.3300</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Take Profit</p>
+                                            <p class="font-semibold text-green-600">1.3450</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="px-6 py-3 bg-gray-50 flex justify-between items-center">
+                                    <span class="text-xs text-gray-500">Risk: Low</span>
+                                    <button class="text-xs bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded-full transition">
+                                        Copy Trade
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Transactions -->
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-xl font-semibold text-gray-800">Recent Transactions</h2>
+                            <a href="#" class="text-sm text-blue-600 hover:text-blue-800 font-medium">View All</a>
+                        </div>
+                        
+                        <div class="bg-white shadow rounded-lg overflow-hidden">
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pair</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Size</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Entry</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Exit</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Result</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">EUR/USD</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Buy</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.5</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.0925</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.1020</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    +95 pips
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">GBP/JPY</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sell</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.3</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">158.40</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">157.85</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    +55 pips
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">USD/CAD</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Buy</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.4</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.3350</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.3300</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                    -50 pips
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">AUD/USD</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sell</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.2</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.6720</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.6650</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    +70 pips
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Signals Section -->
+                <div id="signals-section" class="section-content hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Trading Signals</h2>
+                        <div class="flex space-x-2">
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+                                <i class="fas fa-filter mr-2"></i>Filter
+                            </button>
+                            <button class="bg-yellow-500 hover:bg-yellow-600 text-blue-900 px-4 py-2 rounded-lg text-sm font-medium transition">
+                                <i class="fas fa-bell mr-2"></i>Alert Settings
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white shadow rounded-lg overflow-hidden mb-6">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-lg font-medium text-gray-900">Active Signals</h3>
+                                <div class="flex items-center space-x-2">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        <i class="fas fa-circle mr-1" style="font-size: 6px;"></i> 5 New
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divide-y divide-gray-200">
+                            <!-- Signal Item -->
+                            <div class="px-6 py-4">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <div class="flex items-center space-x-2">
+                                                <p class="text-sm font-medium text-gray-900">EUR/USD</p>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">FOREX</span>
+                                            </div>
+                                            <p class="text-sm text-gray-500 mt-1">Entry: 1.0925 | SL: 1.0880 | TP1: 1.0970 | TP2: 1.1020</p>
+                                            <div class="mt-2 flex flex-wrap gap-2">
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">Medium Risk</span>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">Trend Following</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col items-end">
+                                        <span class="text-xs text-gray-500">10:30 AM</span>
+                                        <button class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs py-1 px-3 rounded-full transition">
+                                            View Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Signal Item -->
+                            <div class="px-6 py-4">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <div class="flex items-center space-x-2">
+                                                <p class="text-sm font-medium text-gray-900">GBP/JPY</p>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">FOREX</span>
+                                            </div>
+                                            <p class="text-sm text-gray-500 mt-1">Entry: 158.40 | SL: 157.80 | TP1: 158.90 | TP2: 159.50</p>
+                                            <div class="mt-2 flex flex-wrap gap-2">
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">High Risk</span>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">Breakout</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col items-end">
+                                        <span class="text-xs text-gray-500">11:45 AM</span>
+                                        <button class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs py-1 px-3 rounded-full transition">
+                                            View Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Signal Item -->
+                            <div class="px-6 py-4">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <div class="flex items-center space-x-2">
+                                                <p class="text-sm font-medium text-gray-900">USD/CAD</p>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">FOREX</span>
+                                            </div>
+                                            <p class="text-sm text-gray-500 mt-1">Entry: 1.3350 | SL: 1.3300 | TP1: 1.3400 | TP2: 1.3450</p>
+                                            <div class="mt-2 flex flex-wrap gap-2">
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">Low Risk</span>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">Support/Resistance</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col items-end">
+                                        <span class="text-xs text-gray-500">2:15 PM</span>
+                                        <button class="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs py-1 px-3 rounded-full transition">
+                                            View Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h3 class="text-lg font-medium text-gray-900">Closed Signals</h3>
+                        </div>
+                        <div class="divide-y divide-gray-200">
+                            <!-- Closed Signal Item -->
+                            <div class="px-6 py-4">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <div class="flex items-center space-x-2">
+                                                <p class="text-sm font-medium text-gray-900">AUD/USD</p>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">FOREX</span>
+                                            </div>
+                                            <p class="text-sm text-gray-500 mt-1">Entry: 0.6720 | SL: 0.6680 | TP1: 0.6750 | TP2: 0.6780</p>
+                                            <div class="mt-2 flex items-center space-x-4">
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                                    <i class="fas fa-check mr-1"></i> Hit TP2 (+60 pips)
+                                                </span>
+                                                <span class="text-xs text-gray-500">Closed: Yesterday</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="text-blue-600 hover:text-blue-800 text-xs">
+                                        View Analysis
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Closed Signal Item -->
+                            <div class="px-6 py-4">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <div class="flex items-center space-x-2">
+                                                <p class="text-sm font-medium text-gray-900">XAU/USD</p>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">FOREX</span>
+                                            </div>
+                                            <p class="text-sm text-gray-500 mt-1">Entry: 1935.40 | SL: 1928.00 | TP1: 1942.00 | TP2: 1950.00</p>
+                                            <div class="mt-2 flex items-center space-x-4">
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                                    <i class="fas fa-check mr-1"></i> Hit TP1 (+6.6 pips)
+                                                </span>
+                                                <span class="text-xs text-gray-500">Closed: 2 days ago</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="text-blue-600 hover:text-blue-800 text-xs">
+                                        View Analysis
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stats Section -->
+                <div id="stats-section" class="section-content hidden">
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Trading Statistics</h2>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                            <!-- Performance Card -->
+                            <div class="bg-white p-6 rounded-xl shadow">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">Performance Overview</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span class="text-gray-600">Win Rate</span>
+                                            <span class="font-medium">72%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 72%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span class="text-gray-600">Profit Factor</span>
+                                            <span class="font-medium">2.4</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span class="text-gray-600">Average Win</span>
+                                            <span class="font-medium">$84.50</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 65%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span class="text-gray-600">Average Loss</span>
+                                            <span class="font-medium">$35.20</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 30%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Monthly Profit Card -->
+                            <div class="bg-white p-6 rounded-xl shadow">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">Monthly Profit</h3>
+                                <div class="h-64 flex items-center justify-center">
+                                    <img src="https://via.placeholder.com/300x200?text=Profit+Chart" alt="Profit Chart" class="w-full h-full object-contain">
+                                </div>
+                                <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+                                    <div class="p-2 bg-blue-50 rounded">
+                                        <p class="text-xs text-gray-500">This Month</p>
+                                        <p class="font-semibold text-green-600">+$320</p>
+                                    </div>
+                                    <div class="p-2 bg-blue-50 rounded">
+                                        <p class="text-xs text-gray-500">Last Month</p>
+                                        <p class="font-semibold text-green-600">+$280</p>
+                                    </div>
+                                    <div class="p-2 bg-blue-50 rounded">
+                                        <p class="text-xs text-gray-500">Best Month</p>
+                                        <p class="font-semibold text-green-600">+$420</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Pairs Performance -->
+                            <div class="bg-white p-6 rounded-xl shadow">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">Pairs Performance</h3>
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span class="text-gray-600">EUR/USD</span>
+                                            <span class="font-medium text-green-600">+215 pips</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 78%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span class="text-gray-600">GBP/JPY</span>
+                                            <span class="font-medium text-green-600">+180 pips</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 65%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span class="text-gray-600">USD/CAD</span>
+                                            <span class="font-medium text-red-600">-45 pips</span>
+                                        </div>
+                                        <div class="progress-bar bg-red-100">
+                                            <div class="progress-fill bg-red-500" style="width: 15%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span class="text-gray-600">XAU/USD</span>
+                                            <span class="font-medium text-green-600">+320 pips</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Trading History -->
+                        <div class="bg-white shadow rounded-lg overflow-hidden">
+                            <div class="px-6 py-4 border-b border-gray-200">
+                                <h3 class="text-lg font-medium text-gray-900">Detailed Trading History</h3>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pair</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Size</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Entry</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Exit</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">P/L</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Today</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">EUR/USD</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Buy</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.5</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.0925</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.1020</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">+$95.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Today</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">GBP/JPY</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sell</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.3</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">158.40</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">157.85</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">+$55.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Today</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">USD/CAD</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Buy</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.4</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.3350</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.3300</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">-$50.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Yesterday</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">AUD/USD</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sell</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.2</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.6720</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.6650</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">+$70.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 days ago</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">XAU/USD</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Buy</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.1</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1935.40</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1942.00</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">+$66.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Section -->
+                <div id="profile-section" class="section-content hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-1">
+                            <div class="bg-white p-6 rounded-xl shadow">
+                                <div class="flex flex-col items-center">
+                                    <div class="relative mb-4">
+                                        <div class="relative inline-block">
+                                        <!-- Soft Gradient Avatar -->
+                                        <div class="w-32 h-32 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center shadow-lg">
+                                            <span class="text-3xl font-semibold text-purple-600">ME</span>
+                                        </div>
+                                        
+                                        <!-- Online Status (Animated Ring) -->
+                                        <div class="absolute bottom-1 right-1 w-6 h-6 rounded-full border-2 border-white bg-green-400">
+                                            <div class="absolute inset-0 rounded-full bg-green-300 opacity-70 animate-ping"></div>
+                                        </div>
+                                        </div>
+                                        <button class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition">
+                                            <i class="fas fa-camera"></i>
+                                        </button>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-800">John Mwakasege</h3>
+                                    <p class="text-gray-600">Premium Member</p>
+                                    <div class="mt-4 w-full">
+                                        <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                            <span>Profile Completion</span>
+                                            <span>85%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6">
+                                    <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Account Details</h4>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-envelope text-gray-400 mr-3 w-5"></i>
+                                            <span class="text-gray-600">john@kingscapital.co.tz</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-phone text-gray-400 mr-3 w-5"></i>
+                                            <span class="text-gray-600">+255 789 456 123</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-map-marker-alt text-gray-400 mr-3 w-5"></i>
+                                            <span class="text-gray-600">Dar es Salaam, Tanzania</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-calendar-alt text-gray-400 mr-3 w-5"></i>
+                                            <span class="text-gray-600">Joined Jan 15, 2023</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="mt-6">
+                                    <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Security</h4>
+                                    <button class="w-full text-left py-2 px-3 bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100 transition flex items-center justify-between">
+                                        <span>Change Password</span>
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                    <button class="w-full text-left py-2 px-3 bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100 transition flex items-center justify-between mt-2">
+                                        <span>Two-Factor Authentication</span>
+                                        <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Active</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="lg:col-span-2">
+                            <div class="bg-white p-6 rounded-xl shadow mb-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">Personal Information</h3>
+                                <form class="space-y-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                                            <input type="text" id="first-name" value="John" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div>
+                                            <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                                            <input type="text" id="last-name" value="Mwakasege" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                        <input type="email" id="email" value="john@kingscapital.co.tz" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                                            <input type="tel" id="phone" value="+255 789 456 123" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div>
+                                            <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                                            <select id="country" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                                <option>Tanzania</option>
+                                                <option>Kenya</option>
+                                                <option>Uganda</option>
+                                                <option>Rwanda</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                                        <textarea id="address" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">Mikocheni, Dar es Salaam</textarea>
+                                    </div>
+                                    
+                                    <div class="flex justify-end pt-4">
+                                        <button type="button" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md mr-3 hover:bg-gray-300 transition">Cancel</button>
+                                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <div class="bg-white p-6 rounded-xl shadow">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">Trading Accounts</h3>
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full divide-y divide-gray-200">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Broker</th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Account No.</th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Balance</th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="bg-white divide-y divide-gray-200">
+                                            <tr>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Exness</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">EX12345678</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Standard</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$2,450.00</td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                        Active
+                                                    </span>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    <a href="#" class="text-blue-600 hover:text-blue-900">Edit</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">HotForex</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">HF87654321</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Premium</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$1,200.00</td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                                        Inactive
+                                                    </span>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    <a href="#" class="text-blue-600 hover:text-blue-900">Edit</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="mt-6">
+                                    <button class="flex items-center text-blue-600 hover:text-blue-800">
+                                        <i class="fas fa-plus-circle mr-2"></i>
+                                        Add New Trading Account
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mentorship Section -->
+                <div id="mentorship-section" class="section-content hidden">
+                    <div class="bg-gradient-to-r from-blue-900 to-blue-700 rounded-xl p-6 text-white mb-6">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                            <div>
+                                <h2 class="text-2xl font-bold mb-2">Forex Mentorship Program</h2>
+                                <p class="opacity-90">Elevate your trading skills with our expert mentorship</p>
+                            </div>
+                            <div class="mt-4 md:mt-0">
+                                <span class="inline-block bg-yellow-500 text-blue-900 px-3 py-1 rounded-full text-sm font-semibold">Active Plan</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-xl shadow">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Current Plan</h3>
+                            <div class="flex items-center mb-4">
+                                <div class="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
+                                    <i class="fas fa-crown text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">Premium Mentorship</h4>
+                                    <p class="text-sm text-gray-600">30-day program</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-600">Start Date</span>
+                                    <span class="font-medium">May 15, 2023</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-600">End Date</span>
+                                    <span class="font-medium">Jun 14, 2023</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-600">Days Remaining</span>
+                                    <span class="font-medium text-red-600">3 days</span>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <button class="w-full py-2 bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-semibold rounded-md transition">
+                                    Renew Plan
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-xl shadow lg:col-span-2">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Mentorship Progress</h3>
+                            <div class="mb-6">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-600">Course Completion</span>
+                                    <span class="font-medium">85%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-4">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-800">Market Fundamentals</h4>
+                                        <p class="text-sm text-gray-600 mt-1">Completed on May 18, 2023</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-4">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-800">Technical Analysis</h4>
+                                        <p class="text-sm text-gray-600 mt-1">Completed on May 25, 2023</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-4">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-800">Risk Management</h4>
+                                        <p class="text-sm text-gray-600 mt-1">Completed on Jun 2, 2023</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-4">
+                                        <i class="fas fa-spinner fa-pulse"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-800">Live Trading Sessions</h4>
+                                        <p class="text-sm text-gray-600 mt-1">In progress (3/5 sessions completed)</p>
+                                        <div class="mt-2 progress-bar">
+                                            <div class="progress-fill" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 mr-4">
+                                        <i class="fas fa-lock"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-800">Advanced Strategies</h4>
+                                        <p class="text-sm text-gray-600 mt-1">Starts after Live Trading</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Upgrade Your Plan</h3>
+                        <p class="text-gray-600 mb-6">Choose the mentorship plan that fits your trading goals and budget.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Basic Plan -->
+                            <div class="border border-gray-200 rounded-xl p-6 hover:border-blue-500 transition">
+                                <h4 class="font-bold text-lg text-gray-800 mb-2">Basic Plan</h4>
+                                <p class="text-gray-600 text-sm mb-4">Ideal for beginners starting their forex journey</p>
+                                <div class="mb-4">
+                                    <span class="text-3xl font-bold text-gray-800">$99</span>
+                                    <span class="text-gray-600">/month</span>
+                                </div>
+                                <ul class="space-y-2 mb-6">
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span class="text-gray-600">Weekly Group Sessions</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span class="text-gray-600">Basic Market Analysis</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span class="text-gray-600">Email Support</span>
+                                    </li>
+                                    <li class="flex items-center text-gray-400">
+                                        <i class="fas fa-times mr-2"></i>
+                                        <span>Live Trading</span>
+                                    </li>
+                                    <li class="flex items-center text-gray-400">
+                                        <i class="fas fa-times mr-2"></i>
+                                        <span>1-on-1 Sessions</span>
+                                    </li>
+                                </ul>
+                                <button class="w-full py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition">
+                                    Select Plan
+                                </button>
+                            </div>
+                            
+                            <!-- Premium Plan -->
+                            <div class="border-2 border-yellow-500 rounded-xl p-6 transform hover:-translate-y-1 transition shadow-lg relative">
+                                <div class="absolute top-0 right-0 bg-yellow-500 text-blue-900 text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+                                    POPULAR
+                                </div>
+                                <h4 class="font-bold text-lg text-gray-800 mb-2">Premium Plan</h4>
+                                <p class="text-gray-600 text-sm mb-4">Comprehensive training for serious traders</p>
+                                <div class="mb-4">
+                                    <span class="text-3xl font-bold text-gray-800">$299</span>
+                                    <span class="text-gray-600">/month</span>
+                                </div>
+                                <ul class="space-y-2 mb-6">
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span class="text-gray-600">3 Weekly Group Sessions</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span class="text-gray-600">Advanced Market Analysis</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span class="text-gray-600">Priority Support</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span class="text-gray-600">5 Live Trading Sessions</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span class="text-gray-600">2 1-on-1 Sessions</span>
+                                    </li>
+                                </ul>
+                                <button class="w-full py-2 bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-semibold rounded-md transition">
+                                    Select Plan
+                                </button>
+                            </div>
+                            
+                            <!-- VIP Plan -->
+                            <div class="border border-gray-200 rounded-xl p-6 hover:border-purple-500 transition">
+                                <h4 class="font-bold text-lg text-gray-800 mb-2">VIP Plan</h4>
+                                <p class="text-gray-600 text-sm mb-4">Exclusive mentorship for maximum results</p>
+                                <div class="mb-4">
+                                    <span class="text-3xl font-bold text-gray-800">$599</span>
+                                    <span class="text-gray-600">/month</span>
+                                </div>
+                                <ul class="space-y-2 mb-6">
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span class="text-gray-600">Daily Group Sessions</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span class="text-gray-600">Premium Market Analysis</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span class="text-gray-600">24/7 Support</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span class="text-gray-600">10 Live Trading Sessions</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span class="text-gray-600">5 1-on-1 Sessions</span>
+                                    </li>
+                                </ul>
+                                <button class="w-full py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition">
+                                    Select Plan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Your Mentor</h3>
+                        <div class="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
+                            <div class="flex-shrink-0">
+                                <div class="h-24 w-24 rounded-full bg-gray-200 overflow-hidden">
+                                    <img src="https://via.placeholder.com/100" alt="Mentor" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-xl text-gray-800">David Mwambene</h4>
+                                <p class="text-yellow-600 font-medium mb-2">Senior Forex Analyst</p>
+                                <p class="text-gray-600 mb-3">With over 10 years of trading experience and 5 years of mentorship, David has helped hundreds of traders achieve consistent profitability in the forex market.</p>
+                                <div class="flex space-x-3">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 flex items-center">
+                                        <i class="fas fa-envelope mr-2"></i> Message
+                                    </a>
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 flex items-center">
+                                        <i class="fas fa-calendar-alt mr-2"></i> Schedule
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            
+            <!-- Footer -->
+            <footer class="bg-white border-t border-gray-200 py-6 hidden lg:block">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="flex items-center">
+                            <img src="https://via.placeholder.com/150x50?text=Kings+Capital" alt="Kings Capital Co." class="h-8 mr-4">
+                            <p class="text-gray-500 text-sm">Empowering Tanzanian youth through forex trading education.</p>
+                        </div>
+                        <div class="mt-4 md:mt-0 flex space-x-6">
+                            <a href="#" class="text-gray-500 hover:text-gray-700">Privacy Policy</a>
+                            <a href="#" class="text-gray-500 hover:text-gray-700">Terms of Service</a>
+                            <a href="#" class="text-gray-500 hover:text-gray-700">Contact Us</a>
+                        </div>
+                        <div class="mt-4 md:mt-0 flex space-x-4">
+                            <a href="#" class="text-gray-500 hover:text-gray-700">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-gray-700">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-gray-700">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-gray-700">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-center text-gray-500 text-sm">
+                        &copy; 2023 Kings Capital Co. All rights reserved.
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+        <!-- Sweet Mobile Bottom Navigation -->
+<div class="bottom-nav lg:hidden fixed bottom-0 w-full bg-white shadow-lg border-t border-gray-100 z-50">
+    <div class="flex justify-around items-center py-2">
+        <a href="#" class="bottom-nav-item flex flex-col items-center px-4 py-2 rounded-lg transition-all duration-200 active" data-section="dashboard">
+            <i class="fas fa-tachometer-alt text-lg text-indigo-600 mb-1"></i>
+            <span class="text-xs font-medium text-gray-700">Dashboard</span>
+            <div class="active-indicator w-1 h-1 bg-indigo-500 rounded-full mt-1 opacity-0 transition-opacity"></div>
+        </a>
+        <a href="#" class="bottom-nav-item flex flex-col items-center px-4 py-2 rounded-lg transition-all duration-200" data-section="signals">
+            <i class="fas fa-chart-line text-lg text-gray-500 mb-1"></i>
+            <span class="text-xs font-medium text-gray-500">Signals</span>
+            <div class="active-indicator w-1 h-1 bg-indigo-500 rounded-full mt-1 opacity-0"></div>
+        </a>
+        <a href="#" class="bottom-nav-item flex flex-col items-center px-4 py-2 rounded-lg transition-all duration-200" data-section="stats">
+            <i class="fas fa-chart-pie text-lg text-gray-500 mb-1"></i>
+            <span class="text-xs font-medium text-gray-500">Stats</span>
+            <div class="active-indicator w-1 h-1 bg-indigo-500 rounded-full mt-1 opacity-0"></div>
+        </a>
+        <a href="#" class="bottom-nav-item flex flex-col items-center px-4 py-2 rounded-lg transition-all duration-200" data-section="profile">
+            <i class="fas fa-user text-lg text-gray-500 mb-1"></i>
+            <span class="text-xs font-medium text-gray-500">Profile</span>
+            <div class="active-indicator w-1 h-1 bg-indigo-500 rounded-full mt-1 opacity-0"></div>
+        </a>
+    </div>
+</div>
+
+<style>
+.bottom-nav-item.active {
+    transform: translateY(-2px);
+}
+.bottom-nav-item.active .fa,
+.bottom-nav-item.active span {
+    color: #4f46e5 !important; /* indigo-600 */
+}
+.bottom-nav-item.active .active-indicator {
+    opacity: 1 !important;
+}
+.bottom-nav-item:hover {
+    transform: translateY(-2px);
+}
+.bottom-nav-item:hover .fa,
+.bottom-nav-item:hover span {
+    color: #4f46e5 !important;
+}
+</style>
+        
+        <!-- Floating Chat Button -->
+        <div class="floating-chat">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Login functionality
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const loginBtn = document.getElementById('login-btn');
+            const spinner = document.getElementById('login-spinner');
+            
+            // Show loading state
+            loginBtn.disabled = true;
+            spinner.classList.remove('hidden');
+            
+            // Simulate login process
+            setTimeout(function() {
+                // Hide login page and show dashboard
+                document.getElementById('login-page').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                
+                // Reset login form
+                loginBtn.disabled = false;
+                spinner.classList.add('hidden');
+                document.getElementById('login-form').reset();
+            }, 1500);
+        });
+        
+        // Logout functionality
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('login-page').classList.remove('hidden');
+        });
+        
+        // Mobile logout
+        document.getElementById('mobile-logout-btn').addEventListener('click', function() {
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('login-page').classList.remove('hidden');
+            document.querySelector('.sidebar').classList.remove('show');
+        });
+        
+        // Sidebar toggle for mobile
+        document.getElementById('sidebar-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.add('show');
+        });
+        
+        document.getElementById('mobile-sidebar-close').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('show');
+        });
+        
+        // Navigation between sections
+        const navLinks = document.querySelectorAll('.nav-link, .bottom-nav-item');
+        const sectionContents = document.querySelectorAll('.section-content');
+        const pageTitle = document.getElementById('page-title');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get the target section
+                const targetSection = this.getAttribute('data-section');
+                
+                // Update active nav link
+                navLinks.forEach(navLink => {
+                    navLink.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Hide all sections and show the target one
+                sectionContents.forEach(section => {
+                    section.classList.add('hidden');
+                });
+                document.getElementById(`${targetSection}-section`).classList.remove('hidden');
+                
+                // Update page title
+                const sectionTitles = {
+                    'dashboard': 'Dashboard Overview',
+                    'signals': 'Trading Signals',
+                    'stats': 'Statistics',
+                    'profile': 'Profile Settings',
+                    'mentorship': 'Mentorship Program'
+                };
+                pageTitle.textContent = sectionTitles[targetSection];
+                
+                // Close mobile sidebar if open
+                document.querySelector('.sidebar').classList.remove('show');
+            });
+        });
+        
+        // Notification button
+        document.getElementById('notification-btn').addEventListener('click', function() {
+            alert('You have 3 new notifications');
+        });
+        
+        // Profile button for mobile
+        document.getElementById('profile-btn').addEventListener('click', function() {
+            // Navigate to profile section
+            navLinks.forEach(navLink => {
+                navLink.classList.remove('active');
+            });
+            document.querySelector('[data-section="profile"]').classList.add('active');
+            
+            sectionContents.forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById('profile-section').classList.remove('hidden');
+            
+            pageTitle.textContent = 'Profile Settings';
+        });
+        
+        // Floating chat button
+        document.querySelector('.floating-chat').addEventListener('click', function() {
+            window.open('https://wa.me/255123456789', '_blank');
+        });
+        
+        // Responsive adjustments
+        function handleResize() {
+            // On larger screens, ensure sidebar is visible if it was hidden
+            if (window.innerWidth >= 992) {
+                document.querySelector('.sidebar').classList.remove('show');
+            }
+        }
+        
+        window.addEventListener('resize', handleResize);
+    </script>
+</body>
+</html>
